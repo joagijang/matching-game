@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+
+<!-- Project: Matching Game
+(pictures citation url: udacity.com and http://www.logosdatabase.com/top-500-logos/)
+Suggested browser: Chrome / Firefox
+-->
+
+<html lang="en">
+
+<head>
+	<title>Matching Game</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="css/styles.css" rel="stylesheet">
+</head>
+
+<body>
+	<div class="container">
+		<div id="banner">
+			<img class="logo" src="img/logo.svg" alt="logo">
+			<div class="info">
+				<h1 class="name">George Jiang</h1>
+				<h4 class="project">Project Four: Matching Game</h4>
+			</div>
+		</div>
+		<div id="operation">
+			<ul class="infoaction">
+				<li class="refresh">
+					<button type="button" onclick="refreshGame(gameCells)">Restart</button>
+				</li>
+				<li class="clickinfo">
+					<span class="clicknum">0</span>
+					<span>times clicked</span>
+				</li>
+			</ul>
+		</div>
+		<div id="dummyFrameLeft"></div>
+		<div id="gameCanvas">
+			<table class="gameTable">
+				<tr>
+					<td class="cell">
+						<img class="cellImg" src="img\1.svg" alt="cellImg"></img>
+					</td>
+					<td class="cell">
+						<img class="cellImg" src="img\1.svg" alt="cellImg"></img>
+					</td>
+					<td class="cell">
+						<img class="cellImg" src="img\1.svg" alt="cellImg"></img>
+					</td>
+					<td class="cell">
+						<img class="cellImg" src="img\1.svg" alt="cellImg"></img>
+					</td>
+				</tr>
+				<tr>
+					<td class="cell">
+						<img class="cellImg" src="img\1.svg" alt="cellImg"></img>
+					</td>
+					<td class="cell">
+						<img class="cellImg" src="img\1.svg" alt="cellImg"></img>
+					</td>
+					<td class="cell">
+						<img class="cellImg" src="img\1.svg" alt="cellImg"></img>
+					</td>
+					<td class="cell">
+						<img class="cellImg" src="img\1.svg" alt="cellImg"></img>
+					</td>
+				</tr>
+				<tr>
+					<td class="cell">
+						<img class="cellImg" src="img\1.svg" alt="cellImg"></img>
+					</td>
+					<td class="cell">
+						<img class="cellImg" src="img\1.svg" alt="cellImg"></img>
+					</td>
+					<td class="cell">
+						<img class="cellImg" src="img\1.svg" alt="cellImg"></img>
+					</td>
+					<td class="cell">
+						<img class="cellImg" src="img\1.svg" alt="cellImg"></img>
+					</td>
+				</tr>
+				<tr>
+					<td class="cell">
+						<img class="cellImg" src="img\1.svg" alt="cellImg"></img>
+					</td>
+					<td class="cell">
+						<img class="cellImg" src="img\1.svg" alt="cellImg"></img>
+					</td>
+					<td class="cell">
+						<img class="cellImg" src="img\1.svg" alt="cellImg"></img>
+					</td>
+					<td class="cell">
+						<img class="cellImg" src="img\1.svg" alt="cellImg"></img>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div id="dummyFrameRight"></div>
+	</div>
+	<div id="reportCanvas">
+	</div>
+	<div id="reportPop">
+		<p class="congrats">Congrats!</p>
+		<p class="reportContent">report</p>
+		<button class="ok" type="button" onclick="reportRemove(game)">OK</button>
+	</div>
+	<script src="js/app.js"></script>
+</body>
+
+</html>
