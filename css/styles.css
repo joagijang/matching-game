@@ -14,7 +14,7 @@ body {
   display: inline-flex;
   justify-content: space-between;
   width: 100%;
-  min-width: 430px;
+  min-width: 300px;
 }
 
 .info {
@@ -41,8 +41,8 @@ body {
   order: 1;
   background-color: #aaa;
   width: 100%;
-  min-width: 430px;
-  height: 50px;
+  min-width: 300px;
+  /* height: 60px; */
 }
 
 li {
@@ -56,9 +56,20 @@ button {
 }
 
 .infoaction {
+  list-style-type: none;
+  padding-left: 0;
   display: flex;
   flex-direction: row;
+  align-items: center;
   justify-content: space-around;
+}
+
+.starUpper {
+  width: 27px;
+}
+
+.timeval {
+  margin-left: 20px;
 }
 
 #dummyFrameLeft {
@@ -68,7 +79,7 @@ button {
 #gameCanvas {
   order: 3;
   background-color: lightblue;
-  min-width: 430px;
+  min-width: 300px;
 }
 
 #dummyFrameRight {
@@ -94,10 +105,10 @@ button {
   text-align: center;
   border: 1px solid grey;
   box-shadow: 5px 5px 0px 0px #ddd;
-  padding: 0 1em 1em;
+  padding: 0 8px 0 8px;
   width: 38%;
   min-width: 240px;
-  height: 200px;
+  /* height: 220px; */
   background-color: white;
   opacity: 0.95;
 }
@@ -106,14 +117,27 @@ button {
   font-size: 150%;
 }
 
+.reportPop {
+  display: block;
+}
+
 .reportContent {
   font-size: 110%;
 }
 
-.ok {
-  width: 100px;
-  height: 40px;
-  margin-top: 10px;
+.gameRating, .reportButton {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.star {
+  width: 35px;
+}
+
+.ok, .restart {
+  width: 70px;
+  height: 35px;
+  margin: 5px;
 }
 
 .gameTable {
@@ -167,7 +191,7 @@ button {
 }
 
 .cellImg {
-  width: 100%;
+  /* width: 100%; */
 }
 
 .rotation {
@@ -195,7 +219,52 @@ button {
   }
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 466px) {
+  .cell {
+    width: 67px;
+    height: 67px;
+  }
+  .cellImg {
+    width: 40px;
+    height: 40px;
+  }
+  #reportPop {
+    position: absolute;
+    top: 32%;
+    left: 16%;
+  }
+  .name, .project {
+    display: none;
+  }
+  .logo {
+    height: 24px;
+  }
+  .starUpper, .star {
+    width: 23px;
+  }
+  .timeval {
+    margin-left: 10px;
+  }
+  .congrats {
+    font-size: 120%;
+  }
+  .reportContent, span {
+    font-size: 90%;
+  }
+  button {
+    font-size: 70%;
+  }
+  .ok, .restart {
+    width: 70px;
+    height: 30px;
+  }
+  #reportPop {
+    min-width: 180px;
+    /* height: 200px; */
+  }
+}
+
+@media screen and (min-width: 466px) and (max-width: 600px) {
   .cell {
     width: 100px;
     height: 100px;
@@ -206,8 +275,17 @@ button {
   }
   #reportPop {
     position: absolute;
-    top: 45%;
+    top: 40%;
     left: 24%;
+  }
+  .name {
+    display: none;
+  }
+  .project {
+    display: run-in;
+  }
+  .logo {
+    height: 24px;
   }
 }
 
@@ -220,15 +298,48 @@ button {
     width: 80px;
     height: 80px;
   }
+  .name, .project {
+    display: run-in;
+  }
+  .logo {
+    height: 40px;
+  }
+  span {
+    font-size: 110%;
+  }
+  .congrats {
+    font-weight: bold;
+  }
 }
 
 @media screen and (min-width: 1001px) {
   .cell {
-    width: 200px;
-    height: 200px;
+    width: 185px;
+    height: 185px;
   }
   .cellImg {
-    width: 120px;
-    height: 120px;
+    width: 110px;
+    height: 110px;
+  }
+  .logo {
+    height: 40px;
+  }
+  .starUpper {
+    width: 32px;
+  }
+  span, button {
+    font-size: 120%;
+  }
+  .congrats {
+    font-size: 200%;
+    font-weight: bold;
+  }
+  .reportContent {
+    font-size: 130%;
+  }
+  .ok, .restart {
+    width: 95px;
+    height: 40px;
+    margin: 10px;
   }
 }

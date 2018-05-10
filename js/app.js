@@ -1,14 +1,25 @@
-//hide content
+/**
+ * @description Hide content
+ * @param {object} content - The content needs to be hidden
+ */
 function visibilityHideContent(content) {
   content.style.visibility = 'hidden';
 }
 
-//show content
+/**
+ * @description Show content
+ * @param {object} content - The content needs to be shown
+ */
 function visibilityShowContent(content) {
   content.style.visibility = 'visible';
 }
 
-//img enlarge effect
+/**
+ * @description Image enlarge effect
+ * @param {object} content - The content needs to be manipulated
+ * @param {number} wTar - Target width
+ * @param {number} hTar - Target height
+ */
 function enlarge(content, wTar, hTar) {
   let w = parseInt(content.style.width);
   let h = parseInt(content.style.height);
@@ -25,21 +36,28 @@ function enlarge(content, wTar, hTar) {
   }
 }
 
-//img shrink effort
+/**
+ * @description Image shrink effect
+ * @param {object} content - The content needs to be manipulated
+ */
 function shrink(content) {
   //initialization case
   if (content.style.width === "") {
     let screenWidth = document.body.clientWidth;
-    if (screenWidth > 1000) {
-      let wTar = 120;
-      let hTar = 120;
-    } else if (screenWidth <= 600) {
-      let wTar = 60;
-      let hTar = 60;
-    } else {
-      let wTar = 80;
-      let hTar = 80;
+    let wTar = 40;
+    let hTar = 40;
+    //width target values must align with the values in css
+    if (screenWidth > (1000 - 33)) {
+      wTar = 110;
+      hTar = 110;
+    } else if (screenWidth > (600 - 33)) {
+      wTar = 80;
+      hTar = 80;
+    } else if (screenWidth > (465 - 33)) {
+      wTar = 60;
+      hTar = 60;
     }
+
     let w = wTar;
     let h = hTar;
     content.style.width = w + "px";
@@ -62,31 +80,36 @@ function shrink(content) {
   }
 }
 
-
-
-//show content
+/**
+ * @description Show content with enlarge effect
+ * @param {object} content - The content needs to be manipulated
+ */
 function visibilityShowContentWithEffect(content) {
   content.style.visibility = 'visible';
   //img enlarge effect
-  let wTar = parseInt(content.width);
-  let hTar = parseInt(content.height);
   let screenWidth = document.body.clientWidth;
-  if (screenWidth > 1000) {
-    wTar = 120;
-    hTar = 120;
-  } else if (screenWidth <= 600) {
-    wTar = 60;
-    hTar = 60;
-  } else {
+  let wTar = 40;
+  let hTar = 40;
+  //width target must align with the values in css
+  if (screenWidth > (1000 - 33)) {
+    wTar = 110;
+    hTar = 110;
+  } else if (screenWidth > (600 - 33)) {
     wTar = 80;
     hTar = 80;
+  } else if (screenWidth > (465 - 33)) {
+    wTar = 60;
+    hTar = 60;
   }
   content.style.width = 0 + "px";
   content.style.height = 0 + "px";
   enlarge(content, wTar, hTar);
 }
 
-//Create an array containing 16 non-repetitive integer from 0-15
+/**
+ * @description Create an array containing 16 non-repetitive integer from 0-15
+ * @returns {array} tempArray
+ */
 function createArray() {
   let tempArray = [];
   let tempFlag = 1;
@@ -108,15 +131,17 @@ function createArray() {
   return tempArray;
 }
 
-
-
-//assign an unique ID to each gameCell
+/**
+ * @description Assign an unique ID to each gameCell
+ * @param {object} elements - The elements need to be assign
+ * @param {array} array - The array to be assigned
+ */
 function assignContentToCells(elements, array) {
   for (let i = 0; i < array.length; i++) {
     elements[i].id = array[i];
     //assign img to each gameCell
-    tempSrc = 'img/' + (array[i] > 7 ? 15 - array[i] : array[i]) + '.svg';
-    tempChild = elements[i].firstElementChild;
+    let tempSrc = 'img/' + (array[i] > 7 ? 15 - array[i] : array[i]) + '.svg';
+    let tempChild = elements[i].firstElementChild;
     tempChild.setAttribute('src', tempSrc);
     visibilityHideContent(tempChild);
     elements[i].newPropertyName = 'isSolved';
@@ -127,24 +152,65 @@ function assignContentToCells(elements, array) {
   }
 }
 
+///////////////////////
+// application layer //
+///////////////////////
 
-
-//application layer
-//hide all game cells
+/**
+ * @description Hide all game cells
+ * @param {object} cells - The card cells to be hidden
+ */
 function hideAllCells(cells) {
   for (i = 0; i < cells.length; i++) {
     visibilityHideContent(cells[i]);
   }
 }
 
-//show all game cells
+/**
+ * @description Show all game cells
+ * @param {object} cells - The card cells to be shown
+ */
 function showAllCells(cells) {
   for (i = 0; i < cells.length; i++) {
     visibilityShowContent(cells[i]);
   }
 }
 
-//effect of correct answer
+/**
+ * @description Reset game timer to zero
+ */
+function timerReset() {
+  gameInfo.secConsumed = 0;
+  clearInterval(timerTrigger);
+  document.querySelector('.timeval').textContent = '0:00';
+}
+
+/**
+ * @description Actions to be taken for every second
+ */
+function timerUpdate() {
+  gameInfo.secConsumed++;
+  let min = parseInt(gameInfo.secConsumed / 60);
+  let sec = parseInt(gameInfo.secConsumed % 60);
+  if (sec < 10) {
+    sec = '0' + sec;
+  }
+  document.querySelector('.timeval').textContent = min + ':' + sec;
+  starRatingUpdate(gameInfo); // update star rating
+}
+
+/**
+ * @description Trigger timerUpdate() every 1 second
+ */
+function timerRestart() {
+  timerTrigger = setInterval('timerUpdate()', 1000);
+}
+
+/**
+ * @description Show effect and update relevant parameters when two cells match
+ * @param {object} cellOne
+ * @param {object} cellTwo
+ */
 function effectCorrect(cellOne, cellTwo) {
   cellOne.classList.add('solved');
   cellTwo.classList.add('solved');
@@ -158,7 +224,11 @@ function effectCorrect(cellOne, cellTwo) {
   }, 1000);
 }
 
-//effort of wrong answer
+/**
+ * @description Show effect and update relevant parameters when two cells do NOT match
+ * @param {object} cellOne
+ * @param {object} cellTwo
+ */
 function effectWrong(cellOne, cellTwo) {
   const tempCellOne = cellOne;
   const tempCellTwo = cellTwo;
@@ -179,7 +249,11 @@ function effectWrong(cellOne, cellTwo) {
   }, 1500);
 }
 
-
+/**
+ * @description Remove unmatch effect and update relevant parameters
+ * @param {object} cellOne
+ * @param {object} cellTwo
+ */
 function removeEffectWrong(cellOne, cellTwo) {
   const tempCellOne = cellOne;
   const tempCellTwo = cellTwo;
@@ -195,71 +269,141 @@ function removeEffectWrong(cellOne, cellTwo) {
 
 }
 
-//refresh game board
-function refreshGame(cells) {
+/**
+ * @description Refresh the game board by updating the card cells
+ * @param {object} cells - card cells
+ */
+function refreshGameCells(cells) {
   assignContentToCells(cells, createArray());
-  game.remainingCells = 8;
-  game.numOfClicked = 0;
-  document.querySelector('.clicknum').textContent = game.numOfClicked;
+  gameInfo.remainingCells = 8;
+  gameInfo.numOfClicked = 0;
+  document.querySelector('.clicknum').textContent = gameInfo.numOfClicked;
 }
 
-//show report
-function reportShow(game) {
-  document.querySelector('.reportContent').innerText = 'All cells solved with ' + game.numOfClicked + ' clicks!';
+/**
+ * @description Restart the game
+ * @param {object} cells - card cells
+ */
+function restartGame(cells) {
+  refreshGameCells(cells);
+  timerReset();
+  timerRestart();
+  reportRemove();
+  starRatingUpdate(gameInfo);
+  removeEffectWrong(firstClickCell, secondClickCell);
+  gameInfo.firstClick = -1;
+  gameInfo.secondClick = -1;
+}
+
+/**
+ * @description Update the star rating
+ * @param {object} gameInfo - Game information stored
+ */
+function starRatingUpdate(gameInfo) {
+  let tempStarTwo = document.querySelectorAll('.starTwo');
+  let tempStarThree = document.querySelectorAll('.starThree');
+  if ((gameInfo.secConsumed <= 30) && (gameInfo.numOfClicked <= 28)) {
+    gameInfo.gameRating = 3;
+  } else if ((gameInfo.secConsumed <= 50) && (gameInfo.numOfClicked <= 36)) {
+    gameInfo.gameRating = 2;
+  } else {
+    gameInfo.gameRating = 1;
+  }
+  switch (gameInfo.gameRating) {
+    case 1:
+      tempStarTwo[0].setAttribute('src', 'img/starHollow.svg');
+      tempStarTwo[1].setAttribute('src', 'img/starHollow.svg');
+      tempStarThree[0].setAttribute('src', 'img/starHollow.svg');
+      tempStarThree[1].setAttribute('src', 'img/starHollow.svg');
+      break;
+    case 2:
+      tempStarTwo[0].setAttribute('src', 'img/starSolid.svg');
+      tempStarTwo[1].setAttribute('src', 'img/starSolid.svg');
+      tempStarThree[0].setAttribute('src', 'img/starHollow.svg');
+      tempStarThree[1].setAttribute('src', 'img/starHollow.svg');
+      break;
+    case 3:
+      tempStarTwo[0].setAttribute('src', 'img/starSolid.svg');
+      tempStarTwo[1].setAttribute('src', 'img/starSolid.svg');
+      tempStarThree[0].setAttribute('src', 'img/starSolid.svg');
+      tempStarThree[1].setAttribute('src', 'img/starSolid.svg');
+      break;
+    default:
+      tempStarTwo[0].setAttribute('src', 'img/starHollow.svg');
+      tempStarTwo[1].setAttribute('src', 'img/starHollow.svg');
+      tempStarThree[0].setAttribute('src', 'img/starHollow.svg');
+      tempStarThree[1].setAttribute('src', 'img/starHollow.svg');
+  }
+}
+
+/**
+ * @description Show game report
+ * @param {object} gameInfo - Game information stored
+ */
+function reportShow(gameInfo) {
+  document.querySelector('.reportContent').innerText = 'All cells solved with ' +
+    gameInfo.numOfClicked + ' clicks in ' +
+    document.querySelector('.timeval').textContent + ' !';
   document.querySelector('#reportCanvas').style.zIndex = 9998;
   document.querySelector('#reportPop').style.zIndex = 9999;
+  starRatingUpdate(gameInfo);
 }
 
-//remove report
+/**
+ * @description Remove game report
+ */
 function reportRemove() {
   document.querySelector('#reportCanvas').style.zIndex = -1;
   document.querySelector('#reportPop').style.zIndex = -2;
 }
 
 ///////////////////////////////////////////
-////---------- Event Start----------///////
+/////--------- Event Start ----------//////
 ///////////////////////////////////////////
-let game = {
+let gameInfo = {
   numOfClicked: 0,
   firstClick: -1, // -1: first click, 0~15: cell ID of first click
   secondClick: -1, // -1: initial value, 0~15: cell ID of second click
-  remainingCells: 8 // totally 8 pairs of cells need to be solved
+  remainingCells: 8, // totally 8 pairs of cells need to be solved
+  secConsumed: 0, // time consumed in seconds
+  gameRating: 1 // finish score, 1~3 stars
 };
+let timerTrigger = setInterval('timerUpdate()', 1000);
 const gameCells = document.querySelectorAll('.cell');
-refreshGame(gameCells);
-reportRemove();
-
 let firstClickCell = gameCells[0];
 let secondClickCell = gameCells[0];
+
+restartGame(gameCells);
+reportRemove();
 
 // react on valid 'click' event
 for (let i = 0; i < gameCells.length; i++) {
   gameCells[i].addEventListener('click', function() {
     if (!gameCells[i].isSolved && !gameCells[i].isOccupied) { // do not react on solved or effecting cells
       // first click
-      if (game.firstClick < 0) {
+      if (gameInfo.firstClick < 0) {
         // if not the initial click, hide the last two wrong clicks
-        if ((game.numOfClicked != 0) && (!firstClickCell.isSolved)) {
+        if ((gameInfo.numOfClicked != 0) && (!firstClickCell.isSolved)) {
           // reset last effect
           removeEffectWrong(firstClickCell, secondClickCell);
         }
         firstClickCell = gameCells[i];
-        game.firstClick = gameCells[i].id;
+        gameInfo.firstClick = gameCells[i].id;
         visibilityShowContentWithEffect(gameCells[i].firstElementChild);
         gameCells[i].firstElementChild.classList.add('rotation');
-        game.numOfClicked++;
+        gameInfo.numOfClicked++;
       }
       // second click
-      else if (gameCells[i].id != game.firstClick) {
+      else if (gameCells[i].id != gameInfo.firstClick) {
         secondClickCell = gameCells[i];
-        game.secondClick = gameCells[i].id;
+        gameInfo.secondClick = gameCells[i].id;
         visibilityShowContentWithEffect(gameCells[i].firstElementChild);
         gameCells[i].firstElementChild.classList.add('rotation');
         // Correct answer
-        if (15 === (parseInt(game.firstClick) + parseInt(game.secondClick))) {
+        if (15 === (parseInt(gameInfo.firstClick) + parseInt(gameInfo.secondClick))) {
           firstClickCell.isSolved = true;
           secondClickCell.isSolved = true;
-          game.remainingCells--;
+          gameInfo.remainingCells--;
           // Effect of correct answer
           effectCorrect(firstClickCell, secondClickCell);
         }
@@ -268,17 +412,21 @@ for (let i = 0; i < gameCells.length; i++) {
           // Effect of wrong answer
           effectWrong(firstClickCell, secondClickCell);
         }
-        game.numOfClicked++;
-        game.firstClick = -1; //reset firstClick
-        game.secondClick = -1;
-        if (game.remainingCells <= 0) {
+        gameInfo.numOfClicked++;
+        gameInfo.firstClick = -1; //reset firstClick
+        gameInfo.secondClick = -1;
+        starRatingUpdate(gameInfo); //update star rating
+        // Game Completion
+        if (gameInfo.remainingCells <= 0) {
+          // stop timer
+          clearInterval(timerTrigger);
           // show report
           setTimeout(function() {
-            reportShow(game);
+            reportShow(gameInfo);
           }, 1000);
         }
       }
-    } else {}
-    document.querySelector('.clicknum').textContent = game.numOfClicked;
+    }
+    document.querySelector('.clicknum').textContent = gameInfo.numOfClicked;
   });
 }

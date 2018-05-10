@@ -26,11 +26,20 @@ Suggested browser: Chrome / Firefox
 		<div id="operation">
 			<ul class="infoaction">
 				<li class="refresh">
-					<button type="button" onclick="refreshGame(gameCells)">Restart</button>
+					<button type="button" onclick="restartGame(gameCells)">Restart</button>
 				</li>
-				<li class="clickinfo">
+				<ul class="gameRating">
+					<li><img class="starUpper starOne" src="img/starSolid.svg" alt="starImg">
+					</li>
+					<li><img class="starUpper starTwo" src="img/starSolid.svg" alt="starImg">
+					</li>
+					<li><img class="starUpper starThree" src="img/starSolid.svg" alt="starImg">
+					</li>
+				</ul>
+				<li class="Ratinginfo">
 					<span class="clicknum">0</span>
-					<span>times clicked</span>
+					<span>clicks</span>
+					<span class="timeval">0</span>
 				</li>
 			</ul>
 		</div>
@@ -39,58 +48,58 @@ Suggested browser: Chrome / Firefox
 			<table class="gameTable">
 				<tr>
 					<td class="cell">
-						<img class="cellImg" src="img\1.svg" alt="cellImg"></img>
+						<img class="cellImg" src="img/1.svg" alt="cellImg">
 					</td>
 					<td class="cell">
-						<img class="cellImg" src="img\1.svg" alt="cellImg"></img>
+						<img class="cellImg" src="img/1.svg" alt="cellImg">
 					</td>
 					<td class="cell">
-						<img class="cellImg" src="img\1.svg" alt="cellImg"></img>
+						<img class="cellImg" src="img/1.svg" alt="cellImg">
 					</td>
 					<td class="cell">
-						<img class="cellImg" src="img\1.svg" alt="cellImg"></img>
-					</td>
-				</tr>
-				<tr>
-					<td class="cell">
-						<img class="cellImg" src="img\1.svg" alt="cellImg"></img>
-					</td>
-					<td class="cell">
-						<img class="cellImg" src="img\1.svg" alt="cellImg"></img>
-					</td>
-					<td class="cell">
-						<img class="cellImg" src="img\1.svg" alt="cellImg"></img>
-					</td>
-					<td class="cell">
-						<img class="cellImg" src="img\1.svg" alt="cellImg"></img>
+						<img class="cellImg" src="img/1.svg" alt="cellImg">
 					</td>
 				</tr>
 				<tr>
 					<td class="cell">
-						<img class="cellImg" src="img\1.svg" alt="cellImg"></img>
+						<img class="cellImg" src="img/1.svg" alt="cellImg">
 					</td>
 					<td class="cell">
-						<img class="cellImg" src="img\1.svg" alt="cellImg"></img>
+						<img class="cellImg" src="img/1.svg" alt="cellImg">
 					</td>
 					<td class="cell">
-						<img class="cellImg" src="img\1.svg" alt="cellImg"></img>
+						<img class="cellImg" src="img/1.svg" alt="cellImg">
 					</td>
 					<td class="cell">
-						<img class="cellImg" src="img\1.svg" alt="cellImg"></img>
+						<img class="cellImg" src="img/1.svg" alt="cellImg">
 					</td>
 				</tr>
 				<tr>
 					<td class="cell">
-						<img class="cellImg" src="img\1.svg" alt="cellImg"></img>
+						<img class="cellImg" src="img/1.svg" alt="cellImg">
 					</td>
 					<td class="cell">
-						<img class="cellImg" src="img\1.svg" alt="cellImg"></img>
+						<img class="cellImg" src="img/1.svg" alt="cellImg">
 					</td>
 					<td class="cell">
-						<img class="cellImg" src="img\1.svg" alt="cellImg"></img>
+						<img class="cellImg" src="img/1.svg" alt="cellImg">
 					</td>
 					<td class="cell">
-						<img class="cellImg" src="img\1.svg" alt="cellImg"></img>
+						<img class="cellImg" src="img/1.svg" alt="cellImg">
+					</td>
+				</tr>
+				<tr>
+					<td class="cell">
+						<img class="cellImg" src="img/1.svg" alt="cellImg">
+					</td>
+					<td class="cell">
+						<img class="cellImg" src="img/1.svg" alt="cellImg">
+					</td>
+					<td class="cell">
+						<img class="cellImg" src="img/1.svg" alt="cellImg">
+					</td>
+					<td class="cell">
+						<img class="cellImg" src="img/1.svg" alt="cellImg">
 					</td>
 				</tr>
 			</table>
@@ -102,7 +111,18 @@ Suggested browser: Chrome / Firefox
 	<div id="reportPop">
 		<p class="congrats">Congrats!</p>
 		<p class="reportContent">report</p>
-		<button class="ok" type="button" onclick="reportRemove(game)">OK</button>
+		<ul class="gameRating">
+			<li><img class="star starOne" src="img/starSolid.svg" alt="starImg">
+			</li>
+			<li><img class="star starTwo" src="img/starSolid.svg" alt="starImg">
+			</li>
+			<li><img class="star starThree" src="img/starSolid.svg" alt="starImg">
+			</li>
+		</ul>
+		<ul class="reportButton">
+			<button class="ok" type="button" onclick="reportRemove()">OK</button>
+			<button class="restart" type="button" onclick="restartGame(gameCells)">Restart</button>
+		</ul>
 	</div>
 	<script src="js/app.js"></script>
 </body>
